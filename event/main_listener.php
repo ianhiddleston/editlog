@@ -47,10 +47,10 @@ class main_listener implements EventSubscriberInterface
 
     /* @var \phpbb\user */
     protected $user;
-    
+
     /* @var \phpbb\language\language */
     protected $lang;
-    
+
     /* @var string */
     protected $table;
 
@@ -72,6 +72,7 @@ class main_listener implements EventSubscriberInterface
         $this->db = $db;
         $this->request = $request;
         $this->user = $user;
+        $this->lang = $lang;
         $this->table = $table;
     }
 
