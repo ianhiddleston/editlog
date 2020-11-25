@@ -62,6 +62,7 @@ class main_listener implements EventSubscriberInterface
      * @param \phpbb\db\driver\driver_interface   $db
      * @param \phpbb\request\request    $request
      * @param \phpbb\user               $user
+     * @param \phpbb\language\language  $lang
      * @param string                    $table
      */
     public function __construct(\phpbb\auth\auth $auth, \phpbb\controller\helper $helper, \phpbb\db\driver\driver_interface $db,
