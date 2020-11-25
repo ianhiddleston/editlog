@@ -13,6 +13,7 @@ services:
             - '@request'
             - '@template'
             - '@user'
+            - '@language'
             - '%core.root_path%'
             - '%core.php_ext%'
             - '%towen.editlog.tables.editlog%'
@@ -24,6 +25,7 @@ services:
             - '@dbal.conn'
             - '@request'
             - '@user'
+            - '@language'
             - '%towen.editlog.tables.editlog%'
         tags:
             - { name: event.listener }

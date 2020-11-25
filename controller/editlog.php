@@ -35,6 +35,9 @@ class editlog
 
     /* @var \phpbb\user */
     protected $user;
+    
+    /* @var \phpbb\language\language */
+    protected $lang;
 
     /* @var string phpBB root path */
     protected $root_path;
@@ -56,6 +59,7 @@ class editlog
      * @param \phpbb\request\request $request
      * @param \phpbb\template\template $template
      * @param \phpbb\user $user
+     * @param \phpbb\language\language $lang
      * @param string $root_path
      * @param string $php_ext
      * @param string $table
@@ -63,7 +67,7 @@ class editlog
      */
     public function __construct(\phpbb\auth\auth $auth, \phpbb\config\config $config, \phpbb\controller\helper $helper,
                                 \phpbb\db\driver\driver_interface $db, \phpbb\log\log $log, \phpbb\request\request $request,
-                                \phpbb\template\template $template, \phpbb\user $user,
+                                \phpbb\template\template $template, \phpbb\user $user, \phpbb\language\language $lang,
                                 $root_path, $php_ext, $table)
     {
         $this->auth = $auth;
@@ -74,6 +78,7 @@ class editlog
         $this->request = $request;
         $this->template = $template;
         $this->user = $user;
+        $this->lang = $lang;
         $this->root_path = $root_path;
         $this->php_ext = $php_ext;
         $this->table = $table;
@@ -87,6 +92,8 @@ class editlog
      */
     public function handle($post_id)
     {
+        $language->add_lang('common', 'towen/editlog');
+        
         $post_id = (int) $post_id;
 
         $sql = 'SELECT forum_id, topic_id, post_subject FROM ' . POSTS_TABLE . "

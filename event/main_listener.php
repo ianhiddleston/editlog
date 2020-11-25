@@ -22,7 +22,7 @@ class main_listener implements EventSubscriberInterface
     static public function getSubscribedEvents()
     {
         return array(
-            'core.user_setup' => 'load_language_on_setup',
+            #'core.user_setup' => 'load_language_on_setup',
             'core.permissions' => 'add_permission',
             'core.delete_posts_in_transaction_before' => 'delete_posts',
             'core.modify_submit_post_data' => 'modify_submit_post_data',
@@ -47,7 +47,10 @@ class main_listener implements EventSubscriberInterface
 
     /* @var \phpbb\user */
     protected $user;
-
+    
+    /* @var \phpbb\language\language */
+    protected $lang;
+    
     /* @var string */
     protected $table;
 
@@ -62,7 +65,7 @@ class main_listener implements EventSubscriberInterface
      * @param string                    $table
      */
     public function __construct(\phpbb\auth\auth $auth, \phpbb\controller\helper $helper, \phpbb\db\driver\driver_interface $db,
-                                \phpbb\request\request $request, \phpbb\user $user, $table)
+                                \phpbb\request\request $request, \phpbb\user $user, \phpbb\language\language $lang, $table)
     {
         $this->auth = $auth;
         $this->helper = $helper;
@@ -100,6 +103,7 @@ class main_listener implements EventSubscriberInterface
 
     public function modify_submit_post_data($event)
     {
+        $language->add_lang('common', 'towen/editlog');
         $data = $event['data'];
         $data['post_edit_reason'] = !empty($data['post_edit_reason']) ? $data['post_edit_reason'] : ' ';
         $event['data'] = $data;
@@ -107,14 +111,16 @@ class main_listener implements EventSubscriberInterface
 
   	public function viewtopic_post_rowset_data($event)
   	{
-  		$rowset_data = $event['rowset_data'];
-  		$rowset_data['post_edit_log'] = $event['row']['post_edit_log'];
-  		$event['rowset_data'] = $rowset_data;
+  		  $language->add_lang('common', 'towen/editlog');
+        $rowset_data = $event['rowset_data'];
+  		  $rowset_data['post_edit_log'] = $event['row']['post_edit_log'];
+  		  $event['rowset_data'] = $rowset_data;
   	}
 
     public function viewtopic_modify_post_row($event)
     {
         $post_row = $event['post_row'];
+        $language->add_lang('common', 'towen/editlog');
 
         if ($event['row']['post_edit_log'] && $this->auth->acl_get('m_view_editlog', $event['row']['forum_id']))
         {
@@ -127,6 +133,7 @@ class main_listener implements EventSubscriberInterface
 
     public function posting_modify_template_vars($event)
     {
+        $language->add_lang('common', 'towen/editlog');
         $page_data = $event['page_data'];
         $page_data['S_NO_EDIT_LOG'] = $this->auth->acl_get('u_no_editlog');
         $event['page_data'] = $page_data;

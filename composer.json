@@ -11,12 +11,17 @@
             "name": "Pedro Almirall",
             "email": "towenpa@gmail.com",
             "homepage": "https://phpbb-es.com/",
-            "role": "Lead Developer"
+            "role": "Original Developer"
+        },
+        {
+            "name": "Ian Hiddleston",
+            "homepage": "https://www.originalsyn.co.uk",
+            "role": "Maintenance Developer"
         }
     ],
     "require": {
-        "php": ">=5.3.3",
-        "phpbb/phpbb": ">=3.1.7-RC1,<3.4@dev"
+        "php": ">= 5.4.0",
+        "phpbb/phpbb": ">=3.2,<3.4"
     },
     "require-dev": {
         "phpbb/epv": "dev-master"
@@ -24,7 +29,7 @@
     "extra": {
         "display-name": "Post Edit Log",
         "soft-require": {
-            "phpbb/phpbb": ">=3.1.7-RC1,<3.4@dev"
+            "phpbb/phpbb": ">=3.2,<3.4"
         },
         "version-check": {
             "host": "www.phpbb.com",
